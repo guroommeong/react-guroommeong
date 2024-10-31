@@ -5,6 +5,7 @@ import Home from './features/home/screen';
 import Calendar from './features/calendar/screen';
 import MarchingDogList from './features/matching-dog/screen';
 import LoadingScreen from './features/loadingScreen/screen';
+import AbandonedSearch from './features/abandoned-search/screen';
 import { DogDetail } from './features/dog-detail/screen';
 import { ReservationComplete } from './features/complete/screen';
 
@@ -19,6 +20,7 @@ const AppRouter = () => {
         <Route path="/loading" element={<LoadingScreen />} />
         <Route path="/dogDetail/:id" element={<DogDetail />} />
         <Route path="/reservationComplete" element={<ReservationComplete />} />
+        <Route path="/abandonedsearch" element={<AbandonedSearch />} />
       </Routes>
     </BrowserRouter>
   );

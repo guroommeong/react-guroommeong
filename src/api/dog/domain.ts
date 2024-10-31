@@ -6,4 +6,8 @@ const postDogList = (tripRes: string) => {
   });
 };
 
-export { postDogList };
+const testData = () => {
+  return axiosInstance.get('/api/match/?dog_id=1');
+};
+
+export { postDogList, testData };

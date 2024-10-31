@@ -55,7 +55,7 @@ export const CB = styled.span<TypographyProps>`
 export const CM = styled.span<TypographyProps>`
   font-size: 12px;
   font-weight: 500;
-  color: ${({ color }) => color || 'gray'};
+  color: ${({ color }) => color || 'black'};
 `;
 
 //button
