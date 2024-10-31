@@ -30,4 +30,5 @@ axiosInstance.interceptors.response.use(
   },
 );
 
+// @ts-ignore
 export default axiosInstance;

@@ -4,7 +4,8 @@ import { postDogList } from './domain';
 export const usePostTripDogList = () => {
   return useMutation({
     mutationFn: async (tripRes: string) => {
-      return await postDogList(tripRes);
+      const res = await postDogList(tripRes);
+      return res.data;
     },
     onSuccess: res => {
       console.log('SUCCESS!', res.data);
