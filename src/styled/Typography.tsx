@@ -7,30 +7,66 @@ type TypographyProps = {
 };
 
 // 개별 타이포그래피 스타일 정의
-export const H1 = styled.h1<TypographyProps>`
-  font-size: 2em;
+//header
+
+export const HB1 = styled.h1<TypographyProps>`
+  font-weight: bold;
+  font-size: 22px;
+  color: ${({ color }) => color || 'black'};
+`;
+
+export const HM1 = styled.h1<TypographyProps>`
+  font-weight: 500;
+  font-size: 22px;
+  color: ${({ color }) => color || 'black'};
+`;
+
+export const HB2 = styled.h2<TypographyProps>`
+  font-weight: bold;
+  font-size: 18px;
+  color: ${({ color }) => color || 'black'};
+`;
+export const HM2 = styled.h1<TypographyProps>`
+  font-weight: 500;
+  font-size: 22px;
+  color: ${({ color }) => color || 'black'};
+`;
+
+//body
+export const BB1 = styled.p<TypographyProps>`
+  font-size: 14px;
   font-weight: bold;
   color: ${({ color }) => color || 'black'};
 `;
 
-export const H2 = styled.h2<TypographyProps>`
-  font-size: 1.5em;
+export const BM1 = styled.p<TypographyProps>`
+  font-size: 14px;
+  font-weight: 500;
+  color: ${({ color }) => color || 'black'};
+`;
+
+// Caption
+export const CB = styled.span<TypographyProps>`
+  font-size: 12px;
   font-weight: bold;
-  color: ${({ color }) => color || 'black'};
-`;
-
-export const H3 = styled.h3<TypographyProps>`
-  font-size: 1.2em;
-  font-weight: bold;
-  color: ${({ color }) => color || 'black'};
-`;
-
-export const Body = styled.p<TypographyProps>`
-  font-size: 1em;
-  color: ${({ color }) => color || 'black'};
-`;
-
-export const Caption = styled.span<TypographyProps>`
-  font-size: 0.8em;
   color: ${({ color }) => color || 'gray'};
+`;
+
+export const CM = styled.span<TypographyProps>`
+  font-size: 12px;
+  font-weight: 500;
+  color: ${({ color }) => color || 'gray'};
+`;
+
+//button
+export const ButtonBold = styled.span<TypographyProps>`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${({ color }) => color || 'black'};
+`;
+
+export const ButtonMedium = styled.span<TypographyProps>`
+  font-size: 18px;
+  font-weight: 500;
+  color: ${({ color }) => color || 'black'};
 `;
