@@ -10,6 +10,7 @@ const Calendar = () => {
   const navigate = useNavigate();
   const { startDate, endDate } = useCalendarStore();
   const [step, setStep] = useState(1);
+  const { tripPlan } = useCalendarStore();
 
   const elementByStep: {
     [key: number]: { title?: string; description: React.ReactNode; component: React.ReactNode };
@@ -63,7 +64,11 @@ const Calendar = () => {
     }
 
     if (step === 2) {
-      navigate('/loading');
+      if (tripPlan) {
+        navigate('/loading');
+      }
+      alert('내용을 입력해주세요');
+
       return;
     }
     setStep(step + 1);
