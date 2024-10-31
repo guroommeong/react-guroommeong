@@ -6,6 +6,8 @@ import { ReactComponent as EmptyStar } from '../../../src/assets/button/EmptySta
 import { ReactComponent as FilledStar } from '../../../src/assets/button/FilledStar.svg';
 import { ReactComponent as HalfStar } from '../../../src/assets/button/HalfStar.svg';
 
+
+
 const StarRating = ({ rating }: { rating: number }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starNumber = index + 1;
