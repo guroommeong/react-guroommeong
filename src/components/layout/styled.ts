@@ -5,8 +5,8 @@ const StyledContainer = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 100%;
-  max-width: 600px;
+  max-height: 73px;
+  background-color: red;
 `;
 
 const StyledHeader = styled.header<{ hasChildren: boolean }>`
