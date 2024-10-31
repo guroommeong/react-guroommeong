@@ -1,17 +1,16 @@
 import React, { useState } from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import { ReactComponent as DogMainImage } from '../../../src/assets/dogImage/landingDogImg.svg';
 import { ReactComponent as ResImage } from '../../../src/assets/button/resImage.svg';
 import { ReactComponent as CryDog } from '../../../src/assets/dogImage/cryDog.svg';
 import { LostButton, ModalContainer, ResButton } from './styled';
 import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
-import { useNavigate } from 'react-router-dom';
 import InitLandingPage from '../landing/screen';
 
 const HomeScreen = () => {
-  const navigate = useNavigate(); // useNavigate 훅 사용
-  const [loading, setLoading] = useState<boolean>(false);
+  const [step, setStep] = useState(1); // step 상태 추가
+  const navigate = useNavigate();
 
   return (
     <div
@@ -29,6 +28,7 @@ const HomeScreen = () => {
 
       {/* 상단 고정 헤더 */}
       <HeaderComponent header={'메인 홈'} />
+
       <div
         style={{
           justifyContent: 'space-between',
@@ -51,7 +51,7 @@ const HomeScreen = () => {
           바람멍을 통해 소중한 생명을 지켜주세요!
         </BM1>
 
-        <ModalContainer onClick={() => navigate('/marchingDogList')}>
+        <ModalContainer onClick={() => navigate('/calendar')}>
           <div style={{ textAlign: 'left', gap: '6px' }}>
             <HB2>유기견과 매칭하기</HB2>
             <BM1 color={'gray'}>

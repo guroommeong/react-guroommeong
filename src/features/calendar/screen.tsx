@@ -12,7 +12,7 @@ const Calendar = () => {
   const [step, setStep] = useState(1);
 
   const elementByStep: {
-    [key: number]: { title: string; description: React.ReactNode; component: React.ReactNode };
+    [key: number]: { title?: string; description: React.ReactNode; component: React.ReactNode };
   } = {
     1: {
       title: '제주여행 일정을 설정해주세요',
@@ -61,14 +61,13 @@ const Calendar = () => {
       alert('여행 날짜를 선택해주세요.');
       return;
     }
+
+    if (step === 2) {
+      navigate('/loading');
+      return;
+    }
     setStep(step + 1);
   };
-
-  if (step === 3) {
-    return <></>;
-  }
-
-  console.debug('calendar step:', step);
 
   return (
     <div
@@ -100,6 +99,7 @@ const Calendar = () => {
             alignItems: 'center',
             backgroundColor: '#5380D9',
             borderRadius: '20px',
+            marginTop: '13px',
           }}>
           <HB2 style={{ color: '#FFF' }}># 0{step}</HB2>
         </div>

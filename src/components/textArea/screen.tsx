@@ -1,4 +1,9 @@
+import React from 'react';
+import useCalendarStore from '../../store/calendar'; // zustand store 경로
+
 export const TextArea = () => {
+  const { tripPlan, updateTripPlan } = useCalendarStore(); // tripPlan과 업데이트 함수 가져오기
+
   return (
     <div
       style={{
@@ -7,6 +12,8 @@ export const TextArea = () => {
         width: '100%',
       }}>
       <textarea
+        value={tripPlan} // 상태와 연결
+        onChange={e => updateTripPlan(e.target.value)} // 입력값으로 상태 업데이트
         style={{
           width: 'calc(100% - 80px)',
           height: 320,

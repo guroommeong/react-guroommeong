@@ -27,7 +27,7 @@ const ResButton = styled.button`
   padding-top: 20px;
 
   gap: 8px;
-
+  align-items: center;
   width: 164px;
   height: 244px;
   border: none;
