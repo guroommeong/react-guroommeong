@@ -7,6 +7,7 @@ import { LostButton, ModalContainer, ResButton } from './styled';
 import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import InitLandingPage from '../landing/screen';
+import { postDogList } from '../../api/dog/domain';
 
 const HomeScreen = () => {
   const [step, setStep] = useState(1); // step 상태 추가
@@ -73,7 +74,12 @@ const HomeScreen = () => {
             width: '100%',
             marginTop: '33px',
           }}>
-          <ResButton onClick={() => console.log('예약내역 이동하기')}>
+          <ResButton
+            onClick={async () => {
+              console.log('on click ');
+              const res = await postDogList();
+              console.log(res);
+            }}>
             <div style={{ textAlign: 'left', gap: '6px' }}>
               <HB2>예약내역</HB2>
               <BM1>
