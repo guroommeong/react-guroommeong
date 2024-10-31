@@ -21,9 +21,11 @@ const CalendarComponent = () => {
     <div
       style={{
         marginTop: 16,
-        padding: 20,
         backgroundColor: '#ECF1FA',
         flexGrow: 1,
+        width: '100%',
+        display: 'flex',
+        justifyContent: 'center',
       }}>
       <DateRange
         locale={ko}
