@@ -1,9 +1,9 @@
-import { BB1, BM1, HB1 } from '../../styled/Typography';
+import { BB1, BM1, HB1 } from '../../../styled/Typography';
 import Flicking from '@egjs/react-flicking';
 
-import HeaderComponent from '../../component/header/screen';
-import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlIcon.svg';
-import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
+import HeaderComponent from '../../../component/header/screen';
+import { ReactComponent as GirlImage } from '../../../../src/assets/dogImage/girlIcon.svg';
+import { ReactComponent as BoyImage } from '../../../../src/assets/dogImage/boyIcon.svg';
 import { useNavigate } from 'react-router-dom';
 
 const walks = [
