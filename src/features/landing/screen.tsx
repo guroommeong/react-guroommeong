@@ -1,6 +1,6 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 import { HB1, HB2, HM1 } from '../../styled/Typography';
-import { useState } from 'react';
 
 export default () => {
   const [isShow, setIsShow] = useState(true);
