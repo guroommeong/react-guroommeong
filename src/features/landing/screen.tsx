@@ -1,20 +1,13 @@
 import styled from 'styled-components';
 import { HB1, HB2, HM1 } from '../../styled/Typography';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 export default () => {
   const [isShow, setIsShow] = useState(true);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setIsShow(false);
-    }, 2000);
-  }, []);
-
-  //   TODO: 배포 전 주석 제거
-  //   if (!isShow) {
-  //     return null;
-  //   }
+  if (!isShow) {
+    return null;
+  }
 
   return (
     <>
@@ -35,7 +28,7 @@ export default () => {
 
         <BottomArea>
           <img src={'/images/dogs.png'} width={'100%'} />
-          <Button>시작하기</Button>
+          <Button onClick={() => setIsShow(false)}>시작하기</Button>
         </BottomArea>
       </FixedLayout>
     </>
@@ -56,6 +49,7 @@ const FixedLayout = styled.div`
   right: 0;
   bottom: 0;
   margin: auto;
+  z-index: 10000;
 `;
 
 const Logo = styled.div`

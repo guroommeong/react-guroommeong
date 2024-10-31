@@ -7,6 +7,7 @@ import { LostButton, ModalContainer, ResButton } from './styled';
 import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import { useNavigate } from 'react-router-dom';
+import InitLandingPage from '../landing/screen';
 
 const HomeScreen = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
@@ -22,6 +23,9 @@ const HomeScreen = () => {
         overflow: 'hidden',
         boxSizing: 'border-box',
       }}>
+      {/* 초기 진입 랜딩 페이지 */}
+      <InitLandingPage />
+
       {/* 상단 고정 헤더 */}
       <HeaderComponent header={'메인 홈'} />
       <div
