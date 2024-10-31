@@ -11,18 +11,19 @@ const LoadingScreen = () => {
 
   useEffect(() => {
     const postDogHandle = async () => {
-      console.log('tripPlan: ', tripPlan);
-      try {
-        const response = await postTripDogList(tripPlan); // 응답을 기다림
-        console.log('response: ', response); // 실제 응답 데이터가 출력됨
-        updateTripPlan(''); // 데이터 전송 후 tripPlan 초기화
+      if (tripPlan) {
+        try {
+          const response = await postTripDogList(tripPlan); // 응답을 기다림
+          console.log('response: ', response); // 실제 응답 데이터가 출력됨
+          updateTripPlan(''); // 데이터 전송 후 tripPlan 초기화
 
-        // 성공 시 response 데이터를 함께 전달하며 이동
-        if (response) {
-          navigate('/marchingDogList', { state: { data: response } });
+          // 성공 시 response 데이터를 함께 전달하며 이동
+          if (response) {
+            navigate('/marchingDogList', { state: { data: response } });
+          }
+        } catch (error) {
+          console.log('Error posting dog list:', error);
         }
-      } catch (error) {
-        console.log('Error posting dog list:', error);
       }
     };
     postDogHandle();

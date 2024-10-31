@@ -11,7 +11,11 @@ const testData = () => {
 };
 
 const getDogDetailList = (dogId: number) => {
-  return axiosInstance.get(`api/match/?id=${dogId}`);
+  return axiosInstance.get(`api/match/?dog_id=${dogId}`);
 };
 
-export { postDogList, testData, getDogDetailList };
+const getDogShowList = () => {
+  return axiosInstance.get(`api/dog`);
+};
+
+export { postDogList, testData, getDogDetailList, getDogShowList };

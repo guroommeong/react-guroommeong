@@ -103,7 +103,9 @@ const MarchingDogList = () => {
             <Container
               key={dog.dog_id}
               num={index}
-              onClick={() => navigate(`/dogDetail/${dog.dog_id}`, { state: { data: dog.dog_id } })}>
+              onClick={() =>
+                navigate(`/dogDetail/${dog.dog_id}`, { state: { data: dog.dog_id, score: dog.match_score } })
+              }>
               <StyledImage
                 src={baseURL + dog.dog_image_url} // 전달받은 데이터에서 이미지 URL 사용
                 alt={dog.name}

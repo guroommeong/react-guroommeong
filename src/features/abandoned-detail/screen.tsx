@@ -6,10 +6,27 @@ import { ReactComponent as EmptyStar } from '../../../src/assets/button/EmptySta
 import { ReactComponent as FilledStar } from '../../../src/assets/button/FilledStar.svg';
 import { ReactComponent as HalfStar } from '../../../src/assets/button/HalfStar.svg';
 import { useGetDogDetailList } from '../../api/dog/mutations';
-import { getDogDetailList } from '../../api/dog/domain';
-import { useLocation } from 'react-router-dom';
 
+import { useLocation } from 'react-router-dom';
+//AbandonedDetail
 const StarRating = ({ rating }: { rating: number }) => {
+  const location = useLocation();
+  const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
+  const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();
+
+  useEffect(() => {
+    const getDetailDogList = async () => {
+      const res = await getDogDetail(responseData);
+      console.log(res);
+    };
+    if (responseData) getDetailDogList();
+  }, []);
+
+  // 예외 처리: 데이터가 없는 경우 기본값 설정
+  if (!responseData) {
+    console.log('데이터가 없습니다.');
+    return <div>데이터가 없습니다. 다시 시도해 주세요.</div>;
+  }
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starNumber = index + 1;
 
@@ -30,14 +47,7 @@ const StarRating = ({ rating }: { rating: number }) => {
   return <div>{stars}</div>;
 };
 
-export const DogDetail = () => {
-  const location = useLocation();
-  const responseScore = location.state?.score; // LoadingScreen에서 전달한 데이터 가져오기
-  const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
-  const baseURL = 'http://192.168.0.108:8000';
-
-  const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();
-
+export const AbandonedDetail = () => {
   const [dog, setDog] = useState({
     id: 1,
     name: '초코',
@@ -60,15 +70,6 @@ export const DogDetail = () => {
       shelter_image_url: '/media/shelter_photos/%ED%96%89%EB%B3%B5%EC%9D%B4%EB%84%A4.jpg',
     },
   });
-
-  useEffect(() => {
-    const getDetailDogList = async () => {
-      const res = await getDogDetail(responseData);
-      setDog(res);
-    };
-    if (responseData) getDetailDogList();
-  }, []);
-
   const [isLoading, setIsLoading] = useState(true);
 
   // 주의할 점
@@ -97,7 +98,7 @@ export const DogDetail = () => {
           position: 'relative',
           height: '100%',
         }}>
-        <img src={baseURL + dog.dog_image_url} width={'auto'} />
+        <img src={dog.dog_image_url} width={'auto'} />
 
         <div
           style={{
@@ -141,11 +142,11 @@ export const DogDetail = () => {
                 alignItems: 'center',
               }}>
               <CM>매칭점수</CM>
-              <HM2 style={{ marginLeft: 8 }}>{responseScore}/5</HM2>
+              <HM2 style={{ marginLeft: 8 }}>{dog.matchScore}/5</HM2>
             </div>
 
             {/* 별점 */}
-            <StarRating rating={responseScore} />
+            <StarRating rating={4.5} />
           </div>
 
           {/* 나이, 견종 크기, 색깔 */}
