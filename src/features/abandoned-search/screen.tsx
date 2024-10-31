@@ -3,23 +3,47 @@ import { BB1, BM1, CM, HB2, HM2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import { ReactComponent as QuestionDog } from '../../../src/assets/dogImage/questionDog.svg';
 import { InputTextOwner, StyledImageSquare } from './styled';
-import { StyledImage } from '../matching-dog/styled';
 import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlBlackIcon.svg';
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
-import { useGetDogShowList } from '../../api/dog/mutations';
+import { useGetDogShowList, useGetUserInfoDog } from '../../api/dog/mutations';
 
 const AbandonedSearch = () => {
   const [ownerName, setOwnerName] = useState<string>('');
   const [registrationNumber, setRegistrationNumber] = useState<string>('');
-  const { mutateAsync: useGetDogShow, isSuccess, isError } = useGetDogShowList();
+  const [responceNumber, setResponceNumber] = useState<any[]>([]);
+  const { mutateAsync: useGetDogShow } = useGetDogShowList();
+  const { mutateAsync: useGetUserDogDetailList, isSuccess } = useGetUserInfoDog();
+  const baseURL = 'http://192.168.0.108:8000';
+
   useEffect(() => {
-    const functionSetting = async () => {
+    const fetchDogShowList = async () => {
       // eslint-disable-next-line react-hooks/rules-of-hooks
       const res = await useGetDogShow();
-      console.log(res.data);
+      setResponceNumber(res);
     };
-    functionSetting();
-  }, []);
+    fetchDogShowList();
+  }, [useGetDogShow]);
+  useEffect(() => {
+    const fetchUserDogDetails = async () => {
+      try {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        const res = await useGetUserDogDetailList({
+          ownerNumber: parseInt(registrationNumber),
+          userName: ownerName,
+        });
+        console.log('User Dog Details:', res);
+        setOwnerName(res.data);
+      } catch (error) {
+        console.error('Error fetching user dog details:', error);
+      }
+    };
+
+    // 조건: ownerName과 registrationNumber가 모두 있을 때만 호출
+    if (ownerName && registrationNumber) {
+      fetchUserDogDetails();
+    }
+  }, [ownerName, registrationNumber]);
+
   return (
     <div
       style={{
@@ -30,12 +54,11 @@ const AbandonedSearch = () => {
         height: '100vh',
         overflow: 'hidden',
         boxSizing: 'border-box',
-        position: 'relative', // 부모 요소에 position 설정
+        position: 'relative',
       }}>
       <HeaderComponent header={'유기견 찾기'} />
       <HM2 style={{ marginTop: 40 }}>잃어버린 내 유기견을 간단히 찾아요</HM2>
 
-      {/* 구분선 */}
       <div
         style={{
           width: 37,
@@ -70,7 +93,7 @@ const AbandonedSearch = () => {
           alignItems: 'center',
           zIndex: 10,
           gap: '85px',
-          marginTop: '20px', // 추가 간격 설정
+          marginTop: '20px',
         }}>
         <div>
           <HB2>
@@ -91,9 +114,8 @@ const AbandonedSearch = () => {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
-
-          position: 'relative', // 상대 위치 설정
-          zIndex: 5, // 낮은 z-index 설정으로 겹치는 문제 해결
+          position: 'relative',
+          zIndex: 5,
         }}>
         <div
           style={{
@@ -117,50 +139,47 @@ const AbandonedSearch = () => {
               marginTop: 10,
               overflowY: 'auto', // 수직 스크롤 활성화
             }}>
-            <div
-              style={{
-                width: '90%',
-                margin: '8px auto',
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
-              <StyledImageSquare
-                src="https://media.istockphoto.com/id/1853686056/ko/%EC%82%AC%EC%A7%84/%EC%A7%91%EC%97%90%EC%84%9C-%ED%9C%B4%EC%8B%9D%EC%9D%84-%EC%B7%A8%ED%95%98%EB%8A%94-%EA%B3%A8%EB%93%A0-%EB%A6%AC%ED%8A%B8%EB%A6%AC%EB%B2%84.webp?b=1&s=612x612&w=0&k=20&c=Lt8MCrP1H17sH79PdD0-mLiYswNTMZor53Ea1Clf1CU="
-                alt="휴식을 취하는 골든 리트리버"
-              />
-              <div>
+            {responceNumber && responceNumber.length > 0 ? (
+              responceNumber.map(dog => (
                 <div
+                  key={dog.dog_id}
                   style={{
+                    width: '90%',
+                    margin: '8px auto',
                     display: 'flex',
                     flexDirection: 'row',
                     alignItems: 'center',
-                    justifyContent: 'space-between',
-                    width: '280px',
-                  }}>
-                  <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                    <HB2 style={{ marginRight: 9 }}>미미</HB2>
-                    <GirlImage />
+                  }}
+                  onClick={() => console.log(dog.dog_id)}>
+                  <StyledImageSquare
+                    src={baseURL + dog.photo_url}
+                    alt={dog.name}
+                    style={{ width: 100, height: 100, marginRight: 20 }}
+                  />
+                  <div>
+                    <div
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        width: '280px',
+                      }}>
+                      <div style={{ display: 'flex', alignItems: 'center' }}>
+                        <HB2 style={{ marginRight: 9 }}>{dog.name}</HB2>
+                        {dog.gender === '암컷' ? <GirlImage /> : <BoyImage />}
+                      </div>
+                      <CM color={'gray'}>{dog.tags[1]}</CM>
+                    </div>
+                    <BM1 color={'gray'}>{dog.description}</BM1>
+                    <BM1 color={'gray'}>{dog.shelter.name}</BM1>
+                    <BM1 color={'gray'}>{dog.shelter.contact}</BM1>
                   </div>
-
-                  <CM color={'gray'}>소형견</CM>
                 </div>
-                <BM1 color={'gray'}>제주동물보호센터</BM1>
-                <BM1 color={'gray'}>064-710-4065</BM1>
-              </div>
-            </div>
-            <div style={{ backgroundColor: 'red', width: '90%', margin: '8px auto' }}>
-              <StyledImageSquare
-                src="https://media.istockphoto.com/id/1853686056/ko/%EC%82%AC%EC%A7%84/%EC%A7%91%EC%97%90%EC%84%9C-%ED%9C%B4%EC%8B%9D%EC%9D%84-%EC%B7%A8%ED%95%98%EB%8A%94-%EA%B3%A8%EB%93%A0-%EB%A6%AC%ED%8A%B8%EB%A6%AC%EB%B2%84.webp?b=1&s=612x612&w=0&k=20&c=Lt8MCrP1H17sH79PdD0-mLiYswNTMZor53Ea1Clf1CU="
-                alt="휴식을 취하는 골든 리트리버"
-              />
-            </div>
-            <div style={{ backgroundColor: 'red', width: '90%', margin: '8px auto' }}>
-              <StyledImageSquare
-                src="https://media.istockphoto.com/id/1853686056/ko/%EC%82%AC%EC%A7%84/%EC%A7%91%EC%97%90%EC%84%9C-%ED%9C%B4%EC%8B%9D%EC%9D%84-%EC%B7%A8%ED%95%98%EB%8A%94-%EA%B3%A8%EB%93%A0-%EB%A6%AC%ED%8A%B8%EB%A6%AC%EB%B2%84.webp?b=1&s=612x612&w=0&k=20&c=Lt8MCrP1H17sH79PdD0-mLiYswNTMZor53Ea1Clf1CU="
-                alt="휴식을 취하는 골든 리트리버"
-              />
-            </div>
+              ))
+            ) : (
+              <BM1 color={'gray'}>유기견 정보가 없습니다.</BM1>
+            )}
           </div>
         </div>
       </div>
