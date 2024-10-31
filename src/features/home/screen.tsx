@@ -73,14 +73,7 @@ const HomeScreen = () => {
             width: '100%',
             marginTop: '33px',
           }}>
-          <ResButton
-            onClick={async () => {
-              console.log('눌렀어 ㅇㅇ');
-              setLoading(true);
-              const res = await postDogList();
-              console.log(res.data);
-              setLoading(false);
-            }}>
+          <ResButton onClick={() => console.log('예약내역 이동하기')}>
             <div style={{ textAlign: 'left', gap: '6px' }}>
               <HB2>예약내역</HB2>
               <BM1>
