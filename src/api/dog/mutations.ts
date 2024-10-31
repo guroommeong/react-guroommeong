@@ -7,7 +7,8 @@ export const usePostTripDogList = () => {
       return await postDogList(tripRes);
     },
     onSuccess: res => {
-      console.log('SUCCESS!', res);
+      console.log('SUCCESS!', res.data);
+      return res.data;
     },
     onError: error => {
       console.log('ERROR:', error.message);

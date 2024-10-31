@@ -13,7 +13,8 @@ const LoadingScreen = () => {
   useEffect(() => {
     const postDogHandle = async () => {
       console.log(tripPlan);
-      postTripDogList(tripPlan);
+      const responce = postTripDogList(tripPlan);
+      console.log(responce);
       // await postDogList(tripPlan);
       updateTripPlan('');
     };
