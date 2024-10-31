@@ -76,9 +76,9 @@ const HomeScreen = () => {
           }}>
           <ResButton
             onClick={async () => {
-              console.log('on click ');
-              const res = await postDogList();
-              console.log(res);
+              // console.log('on click ');
+              // const res = await postDogList();
+              // console.log(res);
             }}>
             <div style={{ textAlign: 'left', gap: '6px' }}>
               <HB2>예약내역</HB2>
