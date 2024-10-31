@@ -28,7 +28,7 @@ export const HB2 = styled.h2<TypographyProps>`
 `;
 export const HM2 = styled.h1<TypographyProps>`
   font-weight: 500;
-  font-size: 22px;
+  font-size: 18px;
   color: ${({ color }) => color || 'black'};
 `;
 
