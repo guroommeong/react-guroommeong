@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
 import { DateRange } from 'react-date-range';
 import { ko } from 'date-fns/locale';
+import useCalendarStore from '../../store/calendar';
 
-import { BM1, HB2, HM2 } from '../../styled/Typography';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
 
 const CalendarComponent = () => {
-  const [state, setState] = useState([
+  const { startDate, endDate, key, update } = useCalendarStore();
+  const state = [
     {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection',
+      startDate: startDate,
+      endDate: endDate,
+      key: key,
     },
-  ]);
+  ];
 
-  console.debug('state', state);
+  console.debug('useCalendarStore state', state);
 
   return (
     <div
@@ -29,16 +29,10 @@ const CalendarComponent = () => {
         locale={ko}
         editableDateInputs={true}
         onChange={item => {
-          console.debug('onChange item', item);
-
-          setState([
-            {
-              startDate: item.selection.startDate ?? new Date(),
-              endDate: item.selection.endDate ?? new Date(),
-              key: item.selection.key ?? 'selection',
-            },
-          ]);
+          const { startDate, endDate } = item.selection;
+          update(startDate ?? new Date(), endDate ?? new Date(), item.selection.key ?? 'selection');
         }}
+        minDate={new Date()}
         moveRangeOnFirstSelection={false}
         ranges={state}
       />
