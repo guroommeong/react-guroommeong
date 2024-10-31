@@ -7,7 +7,9 @@ import MarchingDogList from './features/matching-dog/screen';
 import LoadingScreen from './features/loadingScreen/screen';
 import AbandonedSearch from './features/abandoned-search/screen';
 import { DogDetail } from './features/dog-detail/screen';
-import { ReservationComplete } from './features/complete/screen';
+import { ReservationComplete } from './features/reservation/complete/screen';
+import { ReservationHistory } from './features/reservation/history/screen';
+
 import { AbandonedDetail } from './features/abandoned-detail/screen';
 
 const AppRouter = () => {
@@ -23,6 +25,7 @@ const AppRouter = () => {
         <Route path="/reservationComplete" element={<ReservationComplete />} />
         <Route path="/abandonedsearch" element={<AbandonedSearch />} />
         <Route path="/abandoneddetail" element={<AbandonedDetail />} />
+        <Route path="/reservationHistory" element={<ReservationHistory />} />
       </Routes>
     </BrowserRouter>
   );
