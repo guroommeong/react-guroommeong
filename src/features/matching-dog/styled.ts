@@ -53,6 +53,11 @@ interface ContainerProps {
 }
 
 const Container = styled.div<ContainerProps>`
+  border: none;
+  outline: none;
+
+  cursor: pointer;
+
   width: 164px;
   height: 204px;
   background-color: ${({ num }) => getRandomColor(num)};
@@ -71,11 +76,13 @@ const StyledImage = styled.img`
 const DogNameTagContainer = styled.div<ContainerProps>`
   position: absolute;
   bottom: 101px; /* 사진의 하단에서 약간 위로 배치 */
-  left: 13.5%;
+  left: 18.2%;
   transform: translateX(-50%);
   background-color: ${({ num }) => getRandomColor(num)};
-  border-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
   padding: 4px 10px;
+  width: 40px;
 `;
 
 export {

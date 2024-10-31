@@ -1,14 +1,34 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BB1, BM1, CB, CM, HB1, HB2, HM2 } from '../../styled/Typography';
 import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlIcon.svg';
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
 import { ReactComponent as EmptyStar } from '../../../src/assets/button/EmptyStar.svg';
 import { ReactComponent as FilledStar } from '../../../src/assets/button/FilledStar.svg';
 import { ReactComponent as HalfStar } from '../../../src/assets/button/HalfStar.svg';
+import { useGetDogDetailList } from '../../api/dog/mutations';
+import { getDogDetailList } from '../../api/dog/domain';
+import { useLocation } from 'react-router-dom';
 
 
 
 const StarRating = ({ rating }: { rating: number }) => {
+  const location = useLocation();
+  const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
+  const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();
+
+  useEffect(() => {
+    const getDetailDogList = async () => {
+      const res = await getDogDetail(responseData);
+      console.log(res);
+    };
+    if (responseData) getDetailDogList();
+  }, []);
+
+  // 예외 처리: 데이터가 없는 경우 기본값 설정
+  if (!responseData) {
+    console.log('데이터가 없습니다.');
+    return <div>데이터가 없습니다. 다시 시도해 주세요.</div>;
+  }
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starNumber = index + 1;
 

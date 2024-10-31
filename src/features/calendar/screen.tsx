@@ -66,8 +66,9 @@ const Calendar = () => {
     if (step === 2) {
       if (tripPlan) {
         navigate('/loading');
+      } else {
+        alert('내용을 입력해주세요');
       }
-      alert('내용을 입력해주세요');
 
       return;
     }

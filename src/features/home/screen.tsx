@@ -7,12 +7,11 @@ import { LostButton, ModalContainer, ResButton } from './styled';
 import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import InitLandingPage from '../landing/screen';
-import { postDogList } from '../../api/dog/domain';
+
 
 import '@egjs/flicking/dist/flicking.css';
 
 const HomeScreen = () => {
-  const [step, setStep] = useState(1); // step 상태 추가
   const navigate = useNavigate();
 
   return (
@@ -93,7 +92,7 @@ const HomeScreen = () => {
             <ResImage />
           </ResButton>
 
-          <LostButton>
+          <LostButton onClick={() => navigate('/abandonedsearch')}>
             <div style={{ textAlign: 'left', gap: '6px', width: '100%' }}>
               <HB2>유기견 찾기</HB2>
               <BM1>
