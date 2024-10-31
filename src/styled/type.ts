@@ -3,12 +3,20 @@ export type TColorShades = {
 };
 
 export type TColors = {
-  text: Record<string, string>;
-  bg: Record<string, string>;
-  line: Record<string, string>;
-  brand: Record<string, string>;
-  button: Record<string, string>;
-  popup: Record<string, string>;
+  gray: {
+    dark: string;
+    700: string;
+    500: string;
+    300: string;
+    200: string;
+  };
+  blue1: string;
+  blue2: string;
+  blue3: string;
+  blue4: string;
+  yellow1: string;
+  yellow2: string;
+  yellow3: string;
 };
 
 export type TBorderRadius = {
