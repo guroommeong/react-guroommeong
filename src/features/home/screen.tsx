@@ -6,8 +6,11 @@ import { ReactComponent as CryDog } from '../../../src/assets/dogImage/cryDog.sv
 import { LostButton, ModalContainer, ResButton } from './styled';
 import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
+import { useNavigate } from 'react-router-dom';
 
 const HomeScreen = () => {
+  const navigate = useNavigate(); // useNavigate 훅 사용
+
   return (
     <div
       style={{
@@ -43,7 +46,7 @@ const HomeScreen = () => {
           바람멍을 통해 소중한 생명을 지켜주세요!
         </BM1>
 
-        <ModalContainer onClick={() => console.log('매칭하기 페이지로 이동')}>
+        <ModalContainer onClick={() => navigate('/marchingDogList')}>
           <div style={{ textAlign: 'left', gap: '6px' }}>
             <HB2>유기견과 매칭하기</HB2>
             <BM1 color={'gray'}>
