@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ReactComponent as DogMainImage } from '../../../src/assets/dogImage/landingDogImg.svg';
 import { ReactComponent as ResImage } from '../../../src/assets/button/resImage.svg';
@@ -11,6 +11,7 @@ import InitLandingPage from '../landing/screen';
 
 const HomeScreen = () => {
   const navigate = useNavigate(); // useNavigate 훅 사용
+  const [loading, setLoading] = useState<boolean>(false);
 
   return (
     <div
@@ -72,7 +73,14 @@ const HomeScreen = () => {
             width: '100%',
             marginTop: '33px',
           }}>
-          <ResButton>
+          <ResButton
+            onClick={async () => {
+              console.log('눌렀어 ㅇㅇ');
+              setLoading(true);
+              const res = await postDogList();
+              console.log(res.data);
+              setLoading(false);
+            }}>
             <div style={{ textAlign: 'left', gap: '6px' }}>
               <HB2>예약내역</HB2>
               <BM1>

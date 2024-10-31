@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = '';
+const baseURL = 'http://192.168.0.108:8000';
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
@@ -19,6 +19,7 @@ axiosInstance.interceptors.response.use(
     return response;
   },
   error => {
+    console.log(error);
     if (error.response) {
       return Promise.reject(new Error(`서버로부터 응답을 받지 못했습니다.`));
     } else if (error.request) {
