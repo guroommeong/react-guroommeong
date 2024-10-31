@@ -1,10 +1,11 @@
 import React from 'react';
+import { Layout } from '../../components/layout/screen';
 
 const HomeScreen = () => {
   return (
-    <div>
+    <Layout title={'메인'}>
       <p>홈화면 입니다.</p>
-    </div>
+    </Layout>
   );
 };
 
