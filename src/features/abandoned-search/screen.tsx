@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BB1, BM1, CM, HB2, HM2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import { ReactComponent as QuestionDog } from '../../../src/assets/dogImage/questionDog.svg';
@@ -6,11 +6,20 @@ import { InputTextOwner, StyledImageSquare } from './styled';
 import { StyledImage } from '../matching-dog/styled';
 import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlBlackIcon.svg';
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
+import { useGetDogShowList } from '../../api/dog/mutations';
 
 const AbandonedSearch = () => {
   const [ownerName, setOwnerName] = useState<string>('');
   const [registrationNumber, setRegistrationNumber] = useState<string>('');
-
+  const { mutateAsync: useGetDogShow, isSuccess, isError } = useGetDogShowList();
+  useEffect(() => {
+    const functionSetting = async () => {
+      // eslint-disable-next-line react-hooks/rules-of-hooks
+      const res = await useGetDogShow();
+      console.log(res.data);
+    };
+    functionSetting();
+  }, []);
   return (
     <div
       style={{

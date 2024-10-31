@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { getDogDetailList, postDogList } from './domain';
+import { getDogDetailList, getDogShowList, postDogList } from './domain';
 
 export const usePostTripDogList = () => {
   return useMutation({
@@ -33,4 +33,20 @@ export const useGetDogDetailList = () => {
   });
 };
 
-//getDogDetailList
+export const useGetDogShowList = () => {
+  return useMutation({
+    mutationFn: async () => {
+      const res = await getDogShowList();
+      return res.data;
+    },
+    onSuccess: res => {
+      console.log('SUCCESS!', res.data);
+      return res.data;
+    },
+    onError: error => {
+      console.log('ERROR:', error.message);
+    },
+  });
+};
+
+//getDogShowList
