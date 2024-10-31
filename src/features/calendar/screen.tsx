@@ -1,17 +1,21 @@
 import React from 'react';
 import CalendarComponent from '../../component/calendar/calendarComponent';
 import { HB2, HM2, BM1 } from '../../styled/Typography';
+import HeaderComponent from '../../component/header/screen';
 
 const Calendar = () => {
   return (
     <div
       style={{
         display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
         flexDirection: 'column',
-        height: '100%',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        height: '100vh',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
       }}>
+      <HeaderComponent header={'메인 홈'} />
       <div
         style={{
           display: 'flex',
