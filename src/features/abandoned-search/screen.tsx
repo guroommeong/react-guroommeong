@@ -11,28 +11,37 @@ const AbandonedSearch = () => {
   const [ownerName, setOwnerName] = useState<string>('');
   const [registrationNumber, setRegistrationNumber] = useState<string>('');
   const [responceNumber, setResponceNumber] = useState<any[]>([]);
-  const { mutateAsync: useGetDogShow } = useGetDogShowList();
-  const { mutateAsync: useGetUserDogDetailList, isSuccess } = useGetUserInfoDog();
+  const [responceFindNumber, setFindResponceNumber] = useState<any | null>(null); // 단일 객체로 설정
+  const { mutateAsync: getDogShowList } = useGetDogShowList();
+  const { mutateAsync: getUserDogDetailList } = useGetUserInfoDog();
   const baseURL = 'http://192.168.0.108:8000';
 
   useEffect(() => {
+    // useGetDogShowList 훅을 호출하여 데이터를 가져옴
     const fetchDogShowList = async () => {
-      // eslint-disable-next-line react-hooks/rules-of-hooks
-      const res = await useGetDogShow();
-      setResponceNumber(res);
+      try {
+        const res = await getDogShowList();
+        setResponceNumber(res);
+      } catch (error) {
+        console.error('Error fetching dog show list:', error);
+      }
     };
     fetchDogShowList();
-  }, [useGetDogShow]);
+  }, [getDogShowList]);
+
+  console.log(responceNumber);
+
   useEffect(() => {
+    // useGetUserDogDetailList 훅을 호출하여 데이터를 가져옴
     const fetchUserDogDetails = async () => {
       try {
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        const res = await useGetUserDogDetailList({
+        const res = await getUserDogDetailList({
           ownerNumber: parseInt(registrationNumber),
           userName: ownerName,
         });
         console.log('User Dog Details:', res);
-        setOwnerName(res.data);
+        setFindResponceNumber(res);
+        setResponceNumber([]);
       } catch (error) {
         console.error('Error fetching user dog details:', error);
       }
@@ -42,7 +51,9 @@ const AbandonedSearch = () => {
     if (ownerName && registrationNumber) {
       fetchUserDogDetails();
     }
-  }, [ownerName, registrationNumber]);
+  }, [ownerName, registrationNumber, getUserDogDetailList]);
+
+  console.log(responceNumber);
 
   return (
     <div
@@ -132,14 +143,11 @@ const AbandonedSearch = () => {
               width: 440,
               height: 265,
               backgroundColor: 'white',
-              position: 'absolute', // 부모 기준으로 절대 위치
-              top: '50%', // 세로 중앙 정렬
-              left: '50%', // 가로 중앙 정렬
-              transform: 'translate(-50%, -50%)', // 중앙 정렬 보정
+              position: 'relative', // position을 relative로 변경
               marginTop: 10,
               overflowY: 'auto', // 수직 스크롤 활성화
             }}>
-            {responceNumber && responceNumber.length > 0 ? (
+            {(responceNumber && responceNumber.length > 0) || responceFindNumber ? (
               responceNumber.map(dog => (
                 <div
                   key={dog.dog_id}
@@ -177,6 +185,57 @@ const AbandonedSearch = () => {
                   </div>
                 </div>
               ))
+            ) : (
+              <BM1 color={'gray'}>유기견 정보가 없습니다.</BM1>
+            )}
+
+            {responceFindNumber ? (
+              <div
+                key={responceFindNumber.dog.dog_id}
+                style={{
+                  width: '90%',
+                  margin: '8px auto',
+                  display: 'flex',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <StyledImageSquare
+                  src={baseURL + responceFindNumber.dog.dog_image_url}
+                  alt={responceFindNumber.dog.name}
+                  style={{ width: 100, height: 100, marginRight: 20 }}
+                />
+                <div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      flexDirection: 'row',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      width: '280px',
+                    }}>
+                    <div style={{ display: 'flex', alignItems: 'center' }}>
+                      <HB2 style={{ marginRight: 9 }}>{responceFindNumber.dog.name}</HB2>
+                      {responceFindNumber.dog.gender === '암컷' ? <GirlImage /> : <BoyImage />}
+                    </div>
+                    <CM color={'gray'}>{responceFindNumber.dog.tags.join(', ')}</CM>
+                  </div>
+                  <BM1 color={'gray'}>{responceFindNumber.dog.description}</BM1>
+                  <BM1 color={'gray'}>소유자: {responceFindNumber.dog.owner}</BM1>
+                  <BM1 color={'gray'}>등록번호: {responceFindNumber.dog.registration_number}</BM1>
+                  <BM1 color={'gray'}>남은 입양 가능일: {responceFindNumber.dog.remaining_days}일</BM1>
+
+                  <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                    <HB2>{responceFindNumber.shelter.name}</HB2>
+                    <BM1 color={'gray'}>{responceFindNumber.shelter.description}</BM1>
+                    <BM1 color={'gray'}>연락처: {responceFindNumber.shelter.contact}</BM1>
+                    <StyledImageSquare
+                      src={baseURL + responceFindNumber.shelter.shelter_image_url}
+                      alt={responceFindNumber.shelter.name}
+                      style={{ width: 100, height: 100, marginTop: 10 }}
+                    />
+                  </div>
+                </div>
+              </div>
             ) : (
               <BM1 color={'gray'}>유기견 정보가 없습니다.</BM1>
             )}
