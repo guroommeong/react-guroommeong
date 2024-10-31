@@ -88,6 +88,15 @@ export const DogDetail = () => {
   //     return null;
   //   }
 
+  const commitButton = () => {
+    if (responseScore) {
+      //TODO: modal띄워서 한번 더 물어보긔
+      console.log('강아지 예약하기');
+    } else {
+      console.log('보호소 연락하기');
+    }
+  };
+
   return (
     <>
       <div
@@ -106,7 +115,7 @@ export const DogDetail = () => {
             alignItems: 'center',
             width: '40%',
             borderTopRightRadius: 10,
-            backgroundColor: '#9BCAAA',
+            backgroundColor: responseScore ? '#9BCAAA' : '#FDCE72',
             padding: '4px 0',
           }}>
           <HB1>{dog.name}</HB1>
@@ -120,7 +129,9 @@ export const DogDetail = () => {
         <div
           style={{
             borderTopRightRadius: 12,
-            backgroundImage: 'linear-gradient(to bottom, #9BCAAA 0%, #9BCAAA 5%, white 30%)',
+            backgroundImage: responseScore
+              ? 'linear-gradient(to bottom, #9BCAAA 0%, #9BCAAA 5%, white 30%)'
+              : 'linear-gradient(to bottom, #FDCE72 0%, #FDCE72 5%, white 30%)',
             padding: '8px 25px 0px',
             flexGrow: 1,
           }}>
@@ -135,17 +146,19 @@ export const DogDetail = () => {
               alignItems: 'center',
               marginTop: 12,
             }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-              }}>
-              <CM>매칭점수</CM>
-              <HM2 style={{ marginLeft: 8 }}>{responseScore}/5</HM2>
-            </div>
+            {responseScore && (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                }}>
+                <CM>매칭점수</CM>
+                <HM2 style={{ marginLeft: 8 }}>{responseScore}/5</HM2>
+              </div>
+            )}
 
             {/* 별점 */}
-            <StarRating rating={responseScore} />
+            {responseScore && <StarRating rating={responseScore} />}
           </div>
 
           {/* 나이, 견종 크기, 색깔 */}
@@ -243,10 +256,12 @@ export const DogDetail = () => {
               borderRadius: 8,
               border: 'none',
             }}
-            onClick={() => {
-              //   handlePrev();
-            }}>
-            <HB2 style={{ color: '#FFF' }}>강아지 선택하기</HB2>
+            onClick={commitButton}>
+            {responseScore ? (
+              <HB2 style={{ color: '#FFF' }}>강아지 선택하기</HB2>
+            ) : (
+              <HB2 style={{ color: '#FFF' }}>보호소 연락하기</HB2>
+            )}
           </button>
         </div>
       </div>

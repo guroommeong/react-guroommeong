@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { getDogDetailList, getDogShowList, getUserInfoDog, postDogList } from './domain';
+import { getDogDetailList, getDogShowList, getUserInfoDog, postDogList, postCompleteRes } from './domain';
 
 export const usePostTripDogList = () => {
   return useMutation({
@@ -65,4 +65,20 @@ export const useGetUserInfoDog = () => {
   });
 };
 
-//getUserInfoDog
+export const usePostCompleteRes = () => {
+  return useMutation({
+    mutationFn: async (date: string) => {
+      const res = await postCompleteRes(date);
+      return res.data;
+    },
+    onSuccess: res => {
+      console.log('SUCCESS!', res.data);
+      return res.data;
+    },
+    onError: error => {
+      console.log('ERROR:', error.message);
+    },
+  });
+};
+
+//postCompleteRes

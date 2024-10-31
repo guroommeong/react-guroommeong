@@ -6,6 +6,7 @@ import { InputTextOwner, StyledImageSquare } from './styled';
 import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlBlackIcon.svg';
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
 import { useGetDogShowList, useGetUserInfoDog } from '../../api/dog/mutations';
+import { useNavigate } from 'react-router-dom';
 
 const AbandonedSearch = () => {
   const [ownerName, setOwnerName] = useState<string>('');
@@ -15,6 +16,7 @@ const AbandonedSearch = () => {
   const { mutateAsync: getDogShowList } = useGetDogShowList();
   const { mutateAsync: getUserDogDetailList } = useGetUserInfoDog();
   const baseURL = 'http://192.168.0.108:8000';
+  const navigate = useNavigate();
 
   useEffect(() => {
     // useGetDogShowList 훅을 호출하여 데이터를 가져옴
@@ -158,7 +160,7 @@ const AbandonedSearch = () => {
                     flexDirection: 'row',
                     alignItems: 'center',
                   }}
-                  onClick={() => console.log(dog.dog_id)}>
+                  onClick={() => navigate(`/dogDetail/${dog.dog_id}`, { state: { data: dog.dog_id } })}>
                   <StyledImageSquare
                     src={baseURL + dog.photo_url}
                     alt={dog.name}

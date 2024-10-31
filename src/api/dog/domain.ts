@@ -22,4 +22,11 @@ const getUserInfoDog = (ownerNumb: number, userName: string) => {
   return axiosInstance.get(`api/find/?registration_number=${ownerNumb}&owner=${userName}`);
 };
 
-export { postDogList, testData, getDogDetailList, getDogShowList, getUserInfoDog };
+//api/complete/
+const postCompleteRes = (date: string) => {
+  return axiosInstance.post('/api/complete/', {
+    string: date,
+  });
+};
+
+export { postDogList, testData, getDogDetailList, getDogShowList, getUserInfoDog, postCompleteRes };
