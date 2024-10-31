@@ -12,7 +12,7 @@ import {
 import { BB1, BM1, CB, CM, HB2, HM2 } from '../../styled/Typography';
 import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlIcon.svg';
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const MarchingDogList = () => {
   // 랜덤 색상 배열
@@ -21,15 +21,13 @@ const MarchingDogList = () => {
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
   const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
   const baseURL = 'http://192.168.0.108:8000';
+  const navigate = useNavigate();
 
   // 예외 처리: 데이터가 없는 경우 기본값 설정
   if (!responseData) {
     console.log('데이터가 없습니다.');
     return <div>데이터가 없습니다. 다시 시도해 주세요.</div>;
   }
-
-  // 랜덤 색상 생성 함수
-  console.log(responseData);
 
   return (
     <div
@@ -102,7 +100,10 @@ const MarchingDogList = () => {
       <VerticalScrollView>
         <ContainerWrapper>
           {responseData.recommendations.map((dog: any, index: number) => (
-            <Container key={dog.dog_id} num={index} onClick={() => console.log(dog.dog_id)}>
+            <Container
+              key={dog.dog_id}
+              num={index}
+              onClick={() => navigate(`/dogDetail/${dog.dog_id}`, { state: { data: dog.dog_id } })}>
               <StyledImage
                 src={baseURL + dog.dog_image_url} // 전달받은 데이터에서 이미지 URL 사용
                 alt={dog.name}

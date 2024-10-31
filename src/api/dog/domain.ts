@@ -10,4 +10,8 @@ const testData = () => {
   return axiosInstance.get('/api/match/?dog_id=1');
 };
 
-export { postDogList, testData };
+const getDogDetailList = (dogId: number) => {
+  return axiosInstance.get(`api/match/?id=${dogId}`);
+};
+
+export { postDogList, testData, getDogDetailList };
