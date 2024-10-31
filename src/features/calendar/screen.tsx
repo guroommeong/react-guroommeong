@@ -14,6 +14,7 @@ const Calendar = () => {
         height: '100vh',
         overflow: 'hidden',
         boxSizing: 'border-box',
+        position: 'relative',
       }}>
       <HeaderComponent header={'메인 홈'} />
       <div
@@ -71,7 +72,7 @@ const Calendar = () => {
           justifyContent: 'space-evenly',
           width: '100%',
           marginTop: 20,
-          position: 'fixed',
+          position: 'absolute',
           bottom: 20,
         }}>
         <button
