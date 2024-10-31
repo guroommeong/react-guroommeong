@@ -5,9 +5,11 @@ import AppRouter from './AppRouter';
 import GlobalStyle from './styled/GlobalStyle';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(<>
+root.render(
+  <>
     <GlobalStyle />
     <AppRouter />
-</>);
+  </>,
+);
 
 reportWebVitals();

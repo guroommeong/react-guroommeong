@@ -1,8 +1,5 @@
-import { StyledMain } from "../styled";
+import { StyledMain } from '../styled';
 
 export default ({ children }: { children: React.ReactNode }) => {
-
-    return (
-        <StyledMain>{children}</StyledMain>
-    )
+  return <StyledMain>{children}</StyledMain>;
 };
