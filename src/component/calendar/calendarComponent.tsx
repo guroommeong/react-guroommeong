@@ -29,12 +29,10 @@ const CalendarComponent = () => {
         locale={ko}
         editableDateInputs={true}
         onChange={item => {
-          update(
-            item.selection.startDate ?? new Date(),
-            item.selection.endDate ?? new Date(),
-            item.selection.key ?? 'selection',
-          );
+          const { startDate, endDate } = item.selection;
+          update(startDate ?? new Date(), endDate ?? new Date(), item.selection.key ?? 'selection');
         }}
+        minDate={new Date()}
         moveRangeOnFirstSelection={false}
         ranges={state}
       />
