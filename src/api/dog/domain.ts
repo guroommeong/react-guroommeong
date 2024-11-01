@@ -11,17 +11,17 @@ const testData = () => {
 };
 
 const getDogDetailList = (dogId: number) => {
-  return axiosInstance.post(`api/match/dog/`, {
+  return axiosInstance.post(`/api/match/dog/`, {
     dog_id: dogId,
   });
 };
 
 const getDogShowList = () => {
-  return axiosInstance.post(`api/dog/`);
+  return axiosInstance.post(`/api/dog/`);
 };
 
 const getUserInfoDog = (ownerNumb: number, userName: string) => {
-  return axiosInstance.post(`api/find/`, {
+  return axiosInstance.post(`/api/find/`, {
     registration_number: ownerNumb,
     owner: userName,
   });
@@ -37,7 +37,9 @@ const postCompleteRes = (date: string, dogId: number, guestName: string) => {
 };
 
 const getReservationList = (numberID: string) => {
-  return axiosInstance.post(`/api/complete/?reservation_number=${numberID}`);
+  return axiosInstance.post(`/api/complete/`, {
+    reservation_number: numberID,
+  });
 };
 
 export { postDogList, testData, getDogDetailList, getDogShowList, getUserInfoDog, postCompleteRes, getReservationList };
