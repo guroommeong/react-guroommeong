@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { HB1, HB2, HM1 } from '../../styled/Typography';
+import { ReactComponent as Logo } from '../../../src/assets/dogImage/logo.svg';
 
 export default () => {
   const [isShow, setIsShow] = useState(true);
@@ -12,8 +13,11 @@ export default () => {
   return (
     <>
       <FixedLayout>
-        {/* TODO: Logo 연결 */}
-        <Logo>LOGO</Logo>
+        <Logo
+          style={{
+            marginTop: '80px',
+          }}
+        />
 
         <Guide>
           <HB1>바람멍은</HB1>
@@ -50,10 +54,6 @@ const FixedLayout = styled.div`
   bottom: 0;
   margin: auto;
   z-index: 10000;
-`;
-
-const Logo = styled.div`
-  margin-top: 44px;
 `;
 
 const Guide = styled.div`

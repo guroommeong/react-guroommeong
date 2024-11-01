@@ -87,7 +87,7 @@ const Calendar = () => {
         boxSizing: 'border-box',
         position: 'relative',
       }}>
-      <HeaderComponent header={'메인 홈'} />
+      <HeaderComponent header={'유기견과 매칭하기'} />
       <div
         style={{
           display: 'flex',

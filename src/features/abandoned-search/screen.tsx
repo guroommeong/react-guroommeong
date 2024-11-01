@@ -69,7 +69,7 @@ const AbandonedSearch = () => {
         boxSizing: 'border-box',
         position: 'relative',
       }}>
-      <HeaderComponent header={'유기견 찾기'} />
+      <HeaderComponent header={'유기견 찾기'} showLogo />
       <HM2 style={{ marginTop: 40 }}>잃어버린 내 유기견을 간단히 찾아요</HM2>
 
       <div
