@@ -20,7 +20,7 @@ const MarchingDogList = () => {
   const location = useLocation();
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
   const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
-  const baseURL = 'http://192.168.0.108:8000';
+  const baseURL = 'https://9bba-59-8-115-7.ngrok-free.app';
   const navigate = useNavigate();
 
   // 예외 처리: 데이터가 없는 경우 기본값 설정

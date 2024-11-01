@@ -34,7 +34,7 @@ export const DogDetail = () => {
   const location = useLocation();
   const responseScore = location.state?.score; // LoadingScreen에서 전달한 데이터 가져오기
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
-  const baseURL = 'http://192.168.0.108:8000';
+  const baseURL = 'https://9bba-59-8-115-7.ngrok-free.app';
   const { startDate, endDate } = useCalendarStore();
 
   const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();

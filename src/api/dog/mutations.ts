@@ -26,20 +26,19 @@ export const usePostTripDogList = () => {
 
 export const useGetDogDetailList = () => {
   return useMutation({
-    mutationFn: async (dogId: number) => {
+    mutationFn: async ({ dogId }: { dogId: number }) => {
       const res = await getDogDetailList(dogId);
       return res.data;
     },
     onSuccess: res => {
-      console.log('SUCCESS!', res.data);
-      return res.data;
+      console.log('SUCCESS!', res);
+      return res;
     },
     onError: error => {
       console.log('ERROR:', error.message);
     },
   });
 };
-
 export const useGetDogShowList = () => {
   return useMutation({
     mutationFn: async () => {

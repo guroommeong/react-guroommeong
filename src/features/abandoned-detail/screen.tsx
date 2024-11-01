@@ -12,11 +12,11 @@ import { useLocation } from 'react-router-dom';
 const StarRating = ({ rating }: { rating: number }) => {
   const location = useLocation();
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
-  const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();
+  const { mutateAsync: getDogDetails, isSuccess, isError } = useGetDogDetailList();
 
   useEffect(() => {
     const getDetailDogList = async () => {
-      const res = await getDogDetail(responseData);
+      const res = await getDogDetails({ dogId: 1 });
       console.log(res);
     };
     if (responseData) getDetailDogList();
