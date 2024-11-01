@@ -124,18 +124,20 @@ export const ReservationHistory = () => {
   const name = dataSetting.dog_name;
 
   return (
-    <div
-      style={{
-        padding: 20,
-      }}>
+    <div>
       <HeaderComponent header={'예약 내역'} showLogo />
-      <HistoryCard
-        name={name}
-        startDate={dataSetting.start_date}
-        endDate={dataSetting.end_date}
-        Image={dataSetting.dog_image_url}
-        reservation_number={dataSetting.reservation_number}
-      />
+      <div
+        style={{
+          padding: 20,
+        }}>
+        <HistoryCard
+          name={name}
+          startDate={dataSetting.start_date}
+          endDate={dataSetting.end_date}
+          Image={dataSetting.dog_image_url}
+          reservation_number={dataSetting.reservation_number}
+        />
+      </div>
     </div>
   );
 };

@@ -11,12 +11,12 @@ const HeaderComponent: React.FC<HeaderComponentProps> = ({ header, showLogo }) =
   return (
     <div
       style={{
-        width: '100vw', // 뷰포트 너비에 맞추기
+        width: '100%', // 뷰포트 너비에 맞추기
         height: '73px',
-        background: '#D9D9D9',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        position: 'relative',
         zIndex: 10, // 다른 요소들보다 위에 표시
       }}>
       {showLogo && (
