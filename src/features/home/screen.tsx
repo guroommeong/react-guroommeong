@@ -79,6 +79,7 @@ const HomeScreen = () => {
               // console.log('on click ');
               // const res = await postDogList();
               // console.log(res);
+              navigate('/reservationHistory');
             }}>
             <div style={{ textAlign: 'left', gap: '6px' }}>
               <HB2>예약내역</HB2>

@@ -23,10 +23,16 @@ const getUserInfoDog = (ownerNumb: number, userName: string) => {
 };
 
 //api/complete/
-const postCompleteRes = (date: string) => {
+const postCompleteRes = (date: string, dogId: number, guestName: string) => {
   return axiosInstance.post('/api/complete/', {
-    string: date,
+    date: date,
+    dog_id: dogId,
+    guest_name: guestName,
   });
 };
 
-export { postDogList, testData, getDogDetailList, getDogShowList, getUserInfoDog, postCompleteRes };
+const getReservationList = (numberID: string) => {
+  return axiosInstance.get(`/api/complete/?reservation_number=${numberID}`);
+};
+
+export { postDogList, testData, getDogDetailList, getDogShowList, getUserInfoDog, postCompleteRes, getReservationList };

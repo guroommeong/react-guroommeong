@@ -1,8 +1,32 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BB1, BM1, HB1, HB2 } from '../../../styled/Typography';
+import { useGetReservationList } from '../../../api/dog/mutations';
 import HeaderComponent from '../../../component/header/screen';
 
-const HistoryCard = ({ name }: { name: string }) => {
+const HistoryCard = ({
+  name,
+  startDate,
+  endDate,
+  Image,
+  reservation_number,
+}: {
+  name: string;
+  startDate: string;
+  endDate: string;
+  Image: string;
+  reservation_number: string;
+}) => {
+  const daysUntilDate = (startDate: string): number => {
+    const today = new Date(); // 오늘 날짜
+    const targetDate = new Date(startDate); // 시작 날짜
+
+    // 밀리초 단위의 차이를 일 단위로 변환
+    const diffInMilliseconds = targetDate.getTime() - today.getTime();
+    const diffInDays = Math.ceil(diffInMilliseconds / (1000 * 60 * 60 * 24)); // 일 단위로 반올림
+
+    return diffInDays;
+  };
+  const baseURL = 'http://192.168.0.108:8000';
   return (
     <div
       style={{
@@ -18,7 +42,7 @@ const HistoryCard = ({ name }: { name: string }) => {
         {name}
       </HB2>
       <img
-        src={'/images/dog.png'}
+        src={baseURL + Image}
         alt={'dog'}
         width={'100%'}
         height={'auto'}
@@ -38,22 +62,20 @@ const HistoryCard = ({ name }: { name: string }) => {
         <div style={{ display: 'flex', padding: '20px 14px 0' }}>
           <BM1 style={{ color: '#35383F', minWidth: 80 }}>예약 번호</BM1>
 
-          <BB1>104567</BB1>
+          <BB1>{reservation_number}</BB1>
         </div>
 
         <div style={{ display: 'flex', padding: '20px 14px' }}>
           <BM1 style={{ color: '#35383F', minWidth: 80 }}>기간</BM1>
 
           <BB1>
-            2024년 11월 6일 부터
+            {startDate}
             <br />
-            2024년 11월 20일 까지{' '}
+            {endDate}
             <span
               style={{
                 color: '#787C82',
-              }}>
-              (15일)
-            </span>
+              }}></span>
           </BB1>
         </div>
 
@@ -83,7 +105,23 @@ const HistoryCard = ({ name }: { name: string }) => {
 };
 
 export const ReservationHistory = () => {
-  const name = '아리';
+  const { mutateAsync: getReservationList } = useGetReservationList();
+  const [dataSetting, setDataSetting] = useState<any>('');
+
+  useEffect(() => {
+    const settingData = async () => {
+      const res = localStorage.getItem('reservation_number');
+      console.log(res);
+      // @ts-ignore
+      const data = await getReservationList(res);
+      setDataSetting(data);
+    };
+    settingData();
+  }, []);
+  //localStorage.getItem('reservation_number')
+  console.log(dataSetting);
+
+  const name = dataSetting.dog_name;
 
   return (
     <div
@@ -91,7 +129,13 @@ export const ReservationHistory = () => {
         padding: 20,
       }}>
       <HeaderComponent header={'예약 내역'} showLogo />
-      <HistoryCard name={name} />
+      <HistoryCard
+        name={name}
+        startDate={dataSetting.start_date}
+        endDate={dataSetting.end_date}
+        Image={dataSetting.dog_image_url}
+        reservation_number={dataSetting.reservation_number}
+      />
     </div>
   );
 };
