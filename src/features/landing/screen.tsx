@@ -5,8 +5,14 @@ import { ReactComponent as Logo } from '../../../src/assets/dogImage/logo.svg';
 
 export default () => {
   const [isShow, setIsShow] = useState(true);
+  const firstLanding = window.localStorage.getItem('revisit');
 
-  if (!isShow) {
+  const handleStart = () => {
+    window.localStorage.setItem('revisit', 'true');
+    setIsShow(false);
+  };
+
+  if (!isShow || firstLanding === 'true') {
     return null;
   }
 
@@ -32,7 +38,12 @@ export default () => {
 
         <BottomArea>
           <img src={'/images/dogs.png'} width={'100%'} />
-          <Button onClick={() => setIsShow(false)}>시작하기</Button>
+          <Button
+            onClick={() => {
+              handleStart();
+            }}>
+            시작하기
+          </Button>
         </BottomArea>
       </FixedLayout>
     </>

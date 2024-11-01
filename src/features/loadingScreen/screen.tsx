@@ -42,7 +42,7 @@ const LoadingScreen = () => {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'flex-start',
+        justifyContent: 'center',
         height: '100vh',
         overflow: 'hidden',
         boxSizing: 'border-box',
