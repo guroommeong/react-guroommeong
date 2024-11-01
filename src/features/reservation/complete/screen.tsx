@@ -59,7 +59,7 @@ export const ReservationComplete = () => {
         overflow: 'hidden',
         boxSizing: 'border-box',
       }}>
-      <HeaderComponent header={'예약 확정'} />
+      <HeaderComponent showLogo />
       <HB1 style={{ color: '#35383F' }}>확정되었습니다!</HB1>
       <BM1 style={{ color: '#35383F', marginTop: 10 }}>예약 번호 : 104567.</BM1>
 

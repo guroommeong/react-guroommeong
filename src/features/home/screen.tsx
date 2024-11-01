@@ -8,7 +8,6 @@ import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import InitLandingPage from '../landing/screen';
 
-
 import '@egjs/flicking/dist/flicking.css';
 
 const HomeScreen = () => {
@@ -29,7 +28,7 @@ const HomeScreen = () => {
       <InitLandingPage />
 
       {/* 상단 고정 헤더 */}
-      <HeaderComponent header={'메인 홈'} />
+      <HeaderComponent header={'메인 홈'} showLogo />
 
       <div
         style={{

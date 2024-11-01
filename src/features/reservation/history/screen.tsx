@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { BB1, BM1, HB1, HB2 } from '../../../styled/Typography';
+import HeaderComponent from '../../../component/header/screen';
 
 const HistoryCard = ({ name }: { name: string }) => {
   return (
@@ -89,6 +90,7 @@ export const ReservationHistory = () => {
       style={{
         padding: 20,
       }}>
+      <HeaderComponent header={'예약 내역'} showLogo />
       <HistoryCard name={name} />
     </div>
   );
