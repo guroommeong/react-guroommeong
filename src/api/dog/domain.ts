@@ -11,6 +11,7 @@ const testData = () => {
 };
 
 const getDogDetailList = (dogId: number) => {
+  console.log('dogId: ', dogId);
   return axiosInstance.post(`/api/match/dog/`, {
     dog_id: dogId,
   });

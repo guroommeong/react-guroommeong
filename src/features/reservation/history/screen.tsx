@@ -113,7 +113,7 @@ export const ReservationHistory = () => {
       const res = localStorage.getItem('reservation_number');
       console.log(res);
       // @ts-ignore
-      const data = await getReservationList(res);
+      const data = await getReservationList({ reservation_number: res });
       setDataSetting(data);
     };
     settingData();

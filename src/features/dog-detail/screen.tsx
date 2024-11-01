@@ -68,7 +68,7 @@ export const DogDetail = () => {
 
   useEffect(() => {
     const getDetailDogList = async () => {
-      const res = await getDogDetail(responseData);
+      const res = await getDogDetail({ dogId: responseData });
       setDog(res);
     };
     if (responseData) getDetailDogList();
