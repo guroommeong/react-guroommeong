@@ -1,5 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
-import { getDogDetailList, getDogShowList, getUserInfoDog, postDogList, postCompleteRes } from './domain';
+import {
+  getDogDetailList,
+  getDogShowList,
+  getUserInfoDog,
+  postDogList,
+  postCompleteRes,
+  getReservationList,
+} from './domain';
 
 export const usePostTripDogList = () => {
   return useMutation({
@@ -67,12 +74,32 @@ export const useGetUserInfoDog = () => {
 
 export const usePostCompleteRes = () => {
   return useMutation({
-    mutationFn: async (date: string) => {
-      const res = await postCompleteRes(date);
+    mutationFn: async ({ date, dog_id, guest_name }: { date: string; dog_id: number; guest_name: string }) => {
+      const res = await postCompleteRes(date, dog_id, guest_name);
       return res.data;
     },
     onSuccess: res => {
-      console.log('SUCCESS!', res.data);
+      // reservation_number를 로컬 스토리지에 저장
+      if (res && res.reservation_number) {
+        localStorage.setItem('reservation_number', res.reservation_number);
+        console.log('Reservation number saved to local storage:', res.reservation_number);
+      }
+      return res;
+    },
+    onError: error => {
+      console.log('ERROR:', error.message);
+    },
+  });
+};
+
+export const useGetReservationList = () => {
+  return useMutation({
+    mutationFn: async (dogId: string) => {
+      const res = await getReservationList(dogId);
+      return res.data;
+    },
+    onSuccess: res => {
+      console.log('SUCCESS!', res);
       return res.data;
     },
     onError: error => {
@@ -81,4 +108,4 @@ export const usePostCompleteRes = () => {
   });
 };
 
-//postCompleteRes
+//getReservationList

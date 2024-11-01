@@ -8,7 +8,6 @@ import { BM1, HB2 } from '../../styled/Typography';
 import HeaderComponent from '../../component/header/screen';
 import InitLandingPage from '../landing/screen';
 
-
 import '@egjs/flicking/dist/flicking.css';
 
 const HomeScreen = () => {
@@ -80,6 +79,7 @@ const HomeScreen = () => {
               // console.log('on click ');
               // const res = await postDogList();
               // console.log(res);
+              navigate('/reservationHistory');
             }}>
             <div style={{ textAlign: 'left', gap: '6px' }}>
               <HB2>예약내역</HB2>
