@@ -5,9 +5,10 @@ import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon
 import { ReactComponent as EmptyStar } from '../../../src/assets/button/EmptyStar.svg';
 import { ReactComponent as FilledStar } from '../../../src/assets/button/FilledStar.svg';
 import { ReactComponent as HalfStar } from '../../../src/assets/button/HalfStar.svg';
-import { useGetDogDetailList } from '../../api/dog/mutations';
-import { useLocation } from 'react-router-dom';
+import { useGetDogDetailList, usePostCompleteRes } from '../../api/dog/mutations';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CheckModal from '../../component/modal/checkModal';
+import useCalendarStore from '../../store/calendar';
 const StarRating = ({ rating }: { rating: number }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starNumber = index + 1;
@@ -34,8 +35,11 @@ export const DogDetail = () => {
   const responseScore = location.state?.score; // LoadingScreen에서 전달한 데이터 가져오기
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
   const baseURL = 'http://192.168.0.108:8000';
+  const { startDate, endDate } = useCalendarStore();
 
   const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();
+  const { mutateAsync: postCompleteRes } = usePostCompleteRes();
+  const navigate = useNavigate();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [isCheck, setIsCheck] = useState(false);
@@ -93,9 +97,25 @@ export const DogDetail = () => {
     if (responseScore) {
       //TODO: modal띄워서 한번 더 물어보긔
       console.log('강아지 예약하기');
+      setIsOpenModal(true);
     } else {
       console.log('보호소 연락하기');
     }
+  };
+
+  const formatMonthRange = (date1: Date, date2: Date): string => {
+    // 두 날짜 중 빠른 날짜와 늦은 날짜 찾기
+    const startDate = new Date(Math.min(date1.getTime(), date2.getTime()));
+    const endDate = new Date(Math.max(date1.getTime(), date2.getTime()));
+
+    // 시작 월과 종료 월의 첫 번째와 마지막 날짜 생성
+    const startOfMonth = new Date(startDate.getFullYear(), startDate.getMonth(), 1);
+    const endOfMonth = new Date(endDate.getFullYear(), endDate.getMonth() + 1, 0); // month + 1, day 0 for end of month
+
+    // 날짜를 'YYYY-MM-DD' 형식으로 포맷팅하는 함수
+    const formatDate = (date: Date): string => date.toISOString().split('T')[0];
+
+    return `${formatDate(startOfMonth)}~${formatDate(endOfMonth)}`;
   };
 
   return (
@@ -112,11 +132,17 @@ export const DogDetail = () => {
           toggleModal={() => setIsOpenModal(prev => !prev)}
           title="주의사항 안내"
           onConfirm={() => {
-            console.debug('isCheck', isCheck);
-            if (!isCheck) {
-              alert('약관에 동의해주세요.');
-              return false;
-            }
+            const date1 = new Date(startDate);
+            // @ts-ignore
+            const date2 = new Date(endDate);
+            const formatDate = formatMonthRange(date1, date2);
+
+            postCompleteRes({
+              date: formatDate,
+              dog_id: responseData,
+              guest_name: 'guest',
+            });
+            navigate('/');
             return true;
           }}
           modalContent={
