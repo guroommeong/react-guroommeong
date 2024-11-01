@@ -93,8 +93,8 @@ export const usePostCompleteRes = () => {
 
 export const useGetReservationList = () => {
   return useMutation({
-    mutationFn: async ({ dogId }: { dogId: string }) => {
-      const res = await getReservationList(dogId);
+    mutationFn: async ({ reservation_number }: { reservation_number: string }) => {
+      const res = await getReservationList(reservation_number);
       return res.data;
     },
     onSuccess: res => {

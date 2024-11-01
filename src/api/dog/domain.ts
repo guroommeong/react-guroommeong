@@ -30,6 +30,7 @@ const getUserInfoDog = (ownerNumb: number, userName: string) => {
 
 //api/complete/
 const postCompleteRes = (date: string, dogId: number, guestName: string) => {
+  console.log({ date: date, dog_id: dogId, guest_name: guestName });
   return axiosInstance.post('/api/complete/', {
     date: date,
     dog_id: dogId,
@@ -38,7 +39,8 @@ const postCompleteRes = (date: string, dogId: number, guestName: string) => {
 };
 
 const getReservationList = (numberID: string) => {
-  return axiosInstance.post(`/api/complete/`, {
+  console.log('numberID :', numberID);
+  return axiosInstance.post(`/api/complete/check/`, {
     reservation_number: numberID,
   });
 };
