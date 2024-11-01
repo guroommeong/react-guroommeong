@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const baseURL = 'https://9bba-59-8-115-7.ngrok-free.app';
+const baseURL = 'http://192.168.0.108:8000';
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
-  timeout: 30000,
+  timeout: 40000,
   withCredentials: true,
   headers: {
     Accept: 'application/json',

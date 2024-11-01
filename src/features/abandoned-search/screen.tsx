@@ -15,7 +15,7 @@ const AbandonedSearch = () => {
   const [responceFindNumber, setFindResponceNumber] = useState<any | null>(null); // 단일 객체로 설정
   const { mutateAsync: getDogShowList } = useGetDogShowList();
   const { mutateAsync: getUserDogDetailList } = useGetUserInfoDog();
-  const baseURL = 'https://9bba-59-8-115-7.ngrok-free.app';
+  const baseURL = 'http://192.168.0.108:8000';
   const navigate = useNavigate();
 
   useEffect(() => {
