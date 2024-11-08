@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { BB1, BM1, HB1, HB2 } from '../../../styled/Typography';
 import { useGetReservationList } from '../../../api/dog/mutations';
 import HeaderComponent from '../../../component/header/screen';
+import { baseURL } from '../../../api/instance';
 
 const HistoryCard = ({
   name,
@@ -26,7 +27,7 @@ const HistoryCard = ({
 
     return diffInDays;
   };
-  const baseURL = 'http://192.168.0.108:8000';
+
   return (
     <div
       style={{

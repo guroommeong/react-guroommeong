@@ -7,6 +7,7 @@ import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlBl
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
 import { useGetDogShowList, useGetUserInfoDog } from '../../api/dog/mutations';
 import { useNavigate } from 'react-router-dom';
+import {baseURL} from "../../api/instance"
 
 const AbandonedSearch = () => {
   const [ownerName, setOwnerName] = useState<string>('');
@@ -15,7 +16,7 @@ const AbandonedSearch = () => {
   const [responceFindNumber, setFindResponceNumber] = useState<any | null>(null); // 단일 객체로 설정
   const { mutateAsync: getDogShowList } = useGetDogShowList();
   const { mutateAsync: getUserDogDetailList } = useGetUserInfoDog();
-  const baseURL = 'http://192.168.0.108:8000';
+
   const navigate = useNavigate();
 
   useEffect(() => {

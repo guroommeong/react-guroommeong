@@ -9,6 +9,7 @@ import { useGetDogDetailList, usePostCompleteRes } from '../../api/dog/mutations
 import { useLocation, useNavigate } from 'react-router-dom';
 import CheckModal from '../../component/modal/checkModal';
 import useCalendarStore from '../../store/calendar';
+import {baseURL} from "../../api/instance"
 const StarRating = ({ rating }: { rating: number }) => {
   const stars = Array.from({ length: 5 }, (_, index) => {
     const starNumber = index + 1;
@@ -34,7 +35,7 @@ export const DogDetail = () => {
   const location = useLocation();
   const responseScore = location.state?.score; // LoadingScreen에서 전달한 데이터 가져오기
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
-  const baseURL = 'http://192.168.0.108:8000';
+
   const { startDate, endDate } = useCalendarStore();
 
   const { mutateAsync: getDogDetail, isSuccess, isError } = useGetDogDetailList();

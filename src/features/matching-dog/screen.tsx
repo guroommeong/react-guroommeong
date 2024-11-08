@@ -13,6 +13,7 @@ import { BB1, BM1, CB, CM, HB2, HM2 } from '../../styled/Typography';
 import { ReactComponent as GirlImage } from '../../../src/assets/dogImage/girlIcon.svg';
 import { ReactComponent as BoyImage } from '../../../src/assets/dogImage/boyIcon.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { baseURL } from '../../api/instance';
 
 const MarchingDogList = () => {
   // 랜덤 색상 배열
@@ -20,7 +21,7 @@ const MarchingDogList = () => {
   const location = useLocation();
   const responseData = location.state?.data; // LoadingScreen에서 전달한 데이터 가져오기
   const getRandomColor = () => colors[Math.floor(Math.random() * colors.length)];
-  const baseURL = 'http://192.168.0.108:8000';
+
   const navigate = useNavigate();
 
   // 예외 처리: 데이터가 없는 경우 기본값 설정

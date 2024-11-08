@@ -5,6 +5,7 @@ import HeaderComponent from '../../../component/header/screen';
 import { ReactComponent as GirlImage } from '../../../../src/assets/dogImage/girlIcon.svg';
 import { ReactComponent as BoyImage } from '../../../../src/assets/dogImage/boyIcon.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { baseURL } from '../../../api/instance';
 
 const walks = [
   {
@@ -47,7 +48,6 @@ const activities = [
 export const ReservationComplete = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const baseURL = 'http://192.168.0.108:8000';
   const responseData = baseURL + location.state?.data.dog_image_url;
   const name = '아리';
   const gender = '수컷';
