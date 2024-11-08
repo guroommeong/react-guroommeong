@@ -142,7 +142,7 @@ export const DogDetail = () => {
               dog_id: responseData,
               guest_name: 'guest',
             });
-            navigate('/');
+            navigate('/reservationComplete', { state: { data: dog } });
             return true;
           }}
           modalContent={

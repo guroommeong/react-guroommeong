@@ -4,7 +4,7 @@ import Flicking from '@egjs/react-flicking';
 import HeaderComponent from '../../../component/header/screen';
 import { ReactComponent as GirlImage } from '../../../../src/assets/dogImage/girlIcon.svg';
 import { ReactComponent as BoyImage } from '../../../../src/assets/dogImage/boyIcon.svg';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const walks = [
   {
@@ -46,6 +46,9 @@ const activities = [
 
 export const ReservationComplete = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const baseURL = 'http://192.168.0.108:8000';
+  const responseData = baseURL + location.state?.data.dog_image_url;
   const name = '아리';
   const gender = '수컷';
 
@@ -81,7 +84,7 @@ export const ReservationComplete = () => {
             marginTop: 10,
             overflow: 'hidden',
           }}>
-          <img src={'/images/dog.png'} width={'100%'} />
+          <img src={responseData} width={'100%'} />
         </div>
 
         <div
@@ -117,7 +120,8 @@ export const ReservationComplete = () => {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}>
+          }}
+          onClick={() => navigate('/')}>
           {/* home icon */}
           <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -126,16 +130,15 @@ export const ReservationComplete = () => {
             />
           </svg>
 
-          <BM1 style={{ marginTop: 6, color: '#A5A7AC' }} onClick={() => navigate('/')}>
-            메인 홈
-          </BM1>
+          <BM1 style={{ marginTop: 6, color: '#A5A7AC' }}>메인 홈</BM1>
         </div>
         <div
           style={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-          }}>
+          }}
+          onClick={() => navigate('/reservationHistory')}>
           {/* calendar icon */}
           <svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
